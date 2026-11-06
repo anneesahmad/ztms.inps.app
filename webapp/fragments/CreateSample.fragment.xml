@@ -1,0 +1,200 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog
+        id="mainDialog"
+        title="{= ${inspSample>/isEdit} ? 'Edit Sample' : 'Create Sample'}"
+        contentWidth="60rem"
+    >
+        <content>
+            <f:SimpleForm
+                id="createSampleForm"
+                editable="true"
+                title="Form Details"
+                layout="ColumnLayout"
+                columnsM="2"
+                columnsL="3"
+                columnsXL="4"
+                width="auto"
+                class="sapUiSmallMargin"
+            >
+                <f:content>
+                    <Label
+                        id="SampleQtyform"
+                        text="Sample Quantity"
+                    />
+                    <Input
+                        id="SampleQtytext"
+                        type="Number"
+                        value="{inspSample>/sampleQty}"
+                        editable="{= !${inspSample>/isLocked} }"
+                    />
+
+                    <Label
+                        id="UOMform"
+                        text="UOM"
+                    />
+                    <Input
+                        id="UOMText"
+                        value="{inspSample>/uom}"
+                        showValueHelp="true"
+                        valueHelpRequest=".onUomValueHelp"
+                        editable="{= !${inspSample>/isLocked} }"
+                    />
+
+                    <Label
+                        id="dateCform"
+                        text="Date"
+                    />
+                    <DatePicker
+                        id="DP8"
+                        placeholder="Enter Date"
+                        dateValue="{inspSample>/creaDate}"
+                        showFooter="true"
+                        editable="false"
+                    />
+
+                    <Label
+                        id="TimeCform"
+                        text="Time"
+                    />
+
+                    <TimePicker
+                        id="timeCText"
+                        placeholder="Enter Time"
+                        dateValue="{inspSample>/creaTime}"
+                        editable="false"
+                    />
+
+                    <Label
+                        id="QCPersonform"
+                        text="QC Person Name"
+                    />
+                    <Input
+                        id="QCPersontext"
+                        value="{inspSample>/creaUser}"
+                        editable="{= !${inspSample>/isLocked} }"
+                    />
+
+                    <Label
+                        id="remarksform"
+                        text="Remarks"
+                    />
+                    <Input
+                        id="remarksText"
+                        value="{inspSample>/remarks}"
+                    />
+                </f:content>
+            </f:SimpleForm>
+
+            <f:SimpleForm
+                id="SimpleFormSample3"
+                width="auto"
+                class="sapUiSmallMargin"
+            >
+                <f:content>
+                    <Table
+                        id="sampledataTable3"
+                        items="{inspSample>/inspRes}"
+                        width="100%"
+                        growing="true"
+                        growingThreshold="100"
+                        class="sapUiSmallMarginTop"
+                    >
+                        <headerToolbar>
+                            <OverflowToolbar id="sampledataTabTool3">
+                                <Title
+                                    id="sampledataTabTitle3"
+                                    text="Inspection Results"
+                                    level="H5"
+                                />
+                            </OverflowToolbar>
+                        </headerToolbar>
+
+                        <columns>
+                            <Column
+                                id="srno2"
+                                width="5rem"
+                            >
+                                <Text
+                                    id="srnotxt2"
+                                    text="Sr#"
+                                />
+                            </Column>
+                            <Column id="InspectionCharateristicscol">
+                                <Text
+                                    id="InspectionCharateristicstxt"
+                                    text="Inspection Charateristics"
+                                />
+                            </Column>
+                            <Column id="Vendorresultcol">
+                                <Text
+                                    id="Vendorresulttxt"
+                                    text="Vendor Results"
+                                />
+                            </Column>
+                            <Column id="Qcresultcol">
+                                <Text
+                                    id="Qcresulttxt"
+                                    text="QC Results"
+                                />
+                            </Column>
+                        </columns>
+
+                        <items>
+                            <ColumnListItem id="sampledataTabItem3">
+                                <cells>
+                                    <Text
+                                        id="Srnotxtfld"
+                                        text="{inspSample>micSeq}"
+                                    />
+                                    <Text
+                                        id="inspectionCharateristicstxtfld"
+                                        text="{inspSample>micCode} - {inspSample>micText}"
+                                    />
+                                    <Text
+                                        id="vendorresulttxtfld"
+                                        text="{inspSample>vendorRes}"
+                                    />
+                                    <Input
+                                        id="qcresulttxtfld"
+                                        type="Number"
+                                        value="{inspSample>quanRes}"
+                                        valueState="{= ${inspSample>qcError} ? 'Error' : 'None' }"
+                                        valueStateText="Required"
+                                        liveChange=".onQcLiveChange"
+                                    />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </f:content>
+            </f:SimpleForm>
+        </content>
+
+        <buttons>
+            <Button
+                id="saveSampleBtn"
+                text="Add"
+                type="Emphasized"
+                visible="{= !${inspSample>/isEdit} &amp;&amp; ${appMode>/isQC} }"
+                press=".onAddSample"
+            />
+            <Button
+                id="updateSampleBtn"
+                text="Update"
+                type="Emphasized"
+                visible="{= ${inspSample>/isEdit} &amp;&amp; ${appMode>/isQC} }"
+                press=".onUpdateSample"
+            />
+            <Button
+                id="cancelSampleBtn"
+                text="Cancel"
+                type="Reject"
+                press=".onCloseSample"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

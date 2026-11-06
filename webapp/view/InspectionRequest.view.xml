@@ -1,0 +1,351 @@
+<mvc:View
+    controllerName="zfiori.ztms.inps.app.controller.InspectionRequest"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fo="sap.ui.layout.form"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants"
+>
+    <f:DynamicPage
+        id="_IDGenDynamicPage"
+        headerExpanded="{/headerExpanded}"
+        showFooter="true"
+    >
+        <f:title>
+            <f:DynamicPageTitle id="_IDGenDynamicPageTitle">
+                <f:heading>
+                    <Title
+                        id="_IDGenTitle"
+                        text="TMS Inspection Requests"
+                    />
+                </f:heading>
+
+                <f:actions>
+                    <!-- <Button
+                        id="_IDGenButton3"
+                        text="Create"
+                        type="Emphasized"
+                        press=".onCreate"
+                    /> -->
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader id="_IDGenDynamicPageHeader1">
+                <f:content>
+                    <fb:FilterBar
+                        id="filterbar"
+                        persistencyKey="myPersKey"
+                        useToolbar="false"
+                        showFilterConfiguration="false"
+                        search=".onFilterChange"
+                    >
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem
+                                id="_IDGenFilterGroupItem1"
+                                name="Vendor"
+                                label="Vendor"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <Input
+                                        id="filterVendor"
+                                        name="Vendor"
+                                        placeholder="Enter Vendor"
+                                        showSuggestion="false"
+                                        showValueHelp="false"
+                                    />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                            <fb:FilterGroupItem
+                                id="_IDGenFilterGroupItem2"
+                                name="PO Number"
+                                label="PO Number"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <Input
+                                        id="filterPONumber"
+                                        name="PO Number"
+                                        placeholder="Enter PO Number"
+                                        showSuggestion="false"
+                                        showValueHelp="false"
+                                    />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                            <fb:FilterGroupItem
+                                id="_IDGenFilterGroupItem3"
+                                name="CheckIn Date"
+                                label="CheckIn Date"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <DatePicker
+                                        id="filterCheckInDate"
+                                        name="CheckIn Date"
+                                        placeholder="Select CheckIn Date"
+                                    />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                            <fb:FilterGroupItem
+                                id="_IDGenFilterGroupItem5"
+                                name="CheckIn Time"
+                                label="CheckIn Time"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <TimePicker
+                                        id="filterCheckInTime"
+                                        name="CheckIn Time"
+                                        placeholder="Select CheckIn Time"
+                                        displayFormat="hh:mm a"
+                                        valueFormat="HH:mm"
+                                    />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                            <fb:FilterGroupItem
+                                id="_IDGenFilterGroupItem4"
+                                name="Truck Number"
+                                label="Truck Number"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <Input
+                                        id="filterTruckNumber"
+                                        name="Truck Number"
+                                        placeholder="Enter Truck Number"
+                                        showSuggestion="false"
+                                        showValueHelp="false"
+                                    />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <fo:SimpleForm
+                id="SimpleFormDisplay354"
+                width="auto"
+            >
+                <fo:content>
+                    <Table
+                        id="table"
+                        inset="false"
+                        growing="true"
+                        growingThreshold="100"
+                        width="auto"
+                        mode="None"
+                        items="{inspModel>/}"
+                        selectionChange=".onSelectionChange"
+                    >
+                        <headerToolbar>
+                            <OverflowToolbar id="tableHeaderToolbar">
+                                <Title
+                                    id="tableTitle"
+                                    text="Inspection Requests"
+                                    level="H2"
+                                />
+                                <ToolbarSpacer id="toolbarSpacer" />
+                                <Button
+                                    id="btnClearFilters"
+                                    text="Clear Filters"
+                                    icon="sap-icon://clear-filter"
+                                    press=".onClearFilters"
+                                />
+                            </OverflowToolbar>
+                        </headerToolbar>
+
+                        <columns>
+                            <Column
+                                id="_IDGenColumn2ww2"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                            >
+                                <Text
+                                    id="ReqID"
+                                    text="Req. ID"
+                                />
+                            </Column>
+                            <Column
+                                id="_IDGenColumn"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                            >
+                                <Text
+                                    id="CheckInDate"
+                                    text="Check-In Date"
+                                />
+                            </Column>
+                            <Column
+                                id="_IDGenColumn1"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                            >
+                                <Text
+                                    id="Time"
+                                    text="Time"
+                                />
+                            </Column>
+                            <Column
+                                id="_IDGenColumn2"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                                visible="true"
+                            >
+                                <Text
+                                    id="PONumber"
+                                    text="PO Number"
+                                />
+                            </Column>
+                            <Column
+                                id="_IDGenColumn22dt"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                            >
+                                <Text
+                                    id="Vendor"
+                                    text="Vendor"
+                                />
+                            </Column>
+                            <Column
+                                id="_IDGenColumn3"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                            >
+                                <Text
+                                    id="VendorName"
+                                    text="Vendor Name"
+                                />
+                            </Column>
+                            <Column
+                                id="_IDGenColumn4"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                            >
+                                <Text
+                                    id="TruckNumber"
+                                    text="Truck Number"
+                                />
+                            </Column>
+                            <Column
+                                id="_IDGenColumn5"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                            >
+                                <Text
+                                    id="Quantity"
+                                    text="Quantity"
+                                />
+                            </Column>
+                            <Column
+                                id="_IDGenColumn6"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                            >
+                                <Text
+                                    id="UOM"
+                                    text="UOM"
+                                />
+                            </Column>
+
+                                                        <Column
+                                id="_IDGenColumn9"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                            >
+                                <Text
+                                    id="Status"
+                                    text="Status"
+                                />
+                            </Column>
+                        </columns>
+
+                        <items>
+                            <ColumnListItem
+                                id="_IDGenColumnListItem"
+                                vAlign="Middle"
+                                type="Navigation"
+                                press=".onEditRequest"
+                            >
+                                <cells>
+                                    <Text
+                                        id="_IDGenTextid"
+                                        text="{inspModel>inspReq}"
+                                    />
+                                    <Text
+                                        id="_IDGenText7"
+                                        text="{
+                                            path: 'inspModel>creaDate',
+                                            formatter: '.formatDate'
+                                        }"
+                                    />
+                                    <Text
+                                        id="_IDGenText8"
+                                        text="{
+                                            path: 'inspModel>creaTime',
+                                            formatter: '.formatTime'
+                                        }"
+                                    />
+                                    <Text
+                                        id="_IDGenText9"
+                                        text="{inspModel>poNo}"
+                                        visible="true"
+                                    />
+                                    <Text
+                                        id="_IDGenText10"
+                                        text="{inspModel>vendorCode}"
+                                    />
+                                    <Text
+                                        id="_IDGenText11"
+                                        text="{inspModel>vendorName}"
+                                    />
+                                    <Text
+                                        id="_IDGenText12"
+                                        text="{inspModel>truckReg}"
+                                    />
+                                    <Text
+                                        id="_IDGenText13"
+                                        text=""
+                                    />
+                                    <Text
+                                        id="_IDGenText14"
+                                        text=""
+                                    />
+                                    <Text
+                                        id="_IDGenText15"
+                                        text="{inspModel>status}"
+                                    />                                    
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </fo:content>
+            </fo:SimpleForm>
+        </f:content>
+        <!-- <f:footer>
+            <OverflowToolbar id="_IDGenOverflowToolbar">
+                <ToolbarSpacer id="_IDGenToolbarSpacer" />
+                <Button
+                    id="_IDGenButton"
+                    type="Accept"
+                    text=""
+                    press=" "
+                />
+            </OverflowToolbar>
+        </f:footer> -->
+    </f:DynamicPage>
+</mvc:View>

@@ -1,0 +1,242 @@
+<mvc:View
+    controllerName="zfiori.ztms.inps.app.controller.InspectionForm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    height="100%"
+>
+    <Page
+        id="openaccountpage"
+        showHeader="true"
+        showNavButton="false"
+    >
+        <customHeader>
+            <Bar id="_IDGenBar3">
+                <contentLeft>
+                    <Button
+                        id="_IDGenButton21"
+                        icon="sap-icon://nav-back"
+                        press=".onNavBack"
+                    />
+                </contentLeft>
+                <contentMiddle>
+                    <Title
+                        id="inspectionform"
+                        text="Inspection Form"
+                    />
+                </contentMiddle>
+            </Bar>
+        </customHeader>
+
+        <content>
+            <VBox
+                id="_IDGenVBox22"
+                class="sapUiSmallMargin"
+            >
+                <f:SimpleForm
+                    id="inspectionFormdisplay"
+                    editable="false"
+                    title="Inspection Form Details"
+                    layout="ColumnLayout"
+                    columnsM="2"
+                    columnsL="3"
+                    columnsXL="4"
+                    width="auto"
+                    class="sapUiSmallMargin"
+                >
+                    <f:content>
+                        <Label
+                            id="reqidform"
+                            text="Req. ID"
+                        />
+                        <Text
+                            id="reqidtext"
+                            text="{inspReq}"
+                        />
+
+                        <Label
+                            id="dateform"
+                            text="Date"
+                        />
+                        <Text
+                            id="datetext"
+                            text="{
+                                   path: 'creaDate',
+                                   type: 'sap.ui.model.type.Date',
+                                   formatOptions: { style: 'medium', UTC: true }
+                               }"
+                        />
+
+                        <Label
+                            id="Timeform"
+                            text="Time"
+                        />
+                        <Text
+                            id="timeText"
+                            text="{path: 'creaTime', formatter: '.formatTime'}"
+                        />
+
+                        <Label
+                            id="ponumform"
+                            text="PO Number"
+                        />
+                        <Text
+                            id="ponumtext"
+                            text="{poNo}"
+                        />
+
+                        <Label id="truckform" text="Truck Number"/>
+                        <Text  id="trucktext" text="{truckReg}"/>
+
+                        <Label id="driverform" text="Driver Name"/>
+                        <Text  id="drivertext" text="{driverName}"/>
+
+                        <!-- Vendor is not in inspHead yet; fill in when available -->
+                        <Label
+                            id="venform"
+                            text="Vendor Code"
+                        />
+                        <Text
+                            id="ventext"
+                            text="{vendorCode}"
+                        />
+
+                        <Label
+                            id="vennameform"
+                            text="Vendor Name"
+                        />
+                        <Text
+                            id="vennametext"
+                            text="{vendorName}"
+                        />
+                    </f:content>
+                </f:SimpleForm>
+                <f:SimpleForm
+                    id="SimpleFormSample2"
+                    width="auto"
+                    class="sapUiSmallMargin"
+                >
+                    <f:content>
+                        <Table
+                            id="sampledataTable"
+                            items="{sampleModel>/}"
+                            width="100%"
+                            growing="true"
+                            growingThreshold="100"
+                            growingScrollToLoad="true"
+                            class="sapUiSmallMarginTop"
+                            mode="{= ${appMode>/isSupervisor} ? 'None' : 'Delete' }"
+                            delete=".onDeleteSample"
+                        >
+                            <headerToolbar>
+                                <OverflowToolbar id="sampledataTabTool">
+                                    <Title
+                                        id="sampledataTabTitle"
+                                        text="Sample List"
+                                        level="H5"
+                                    />
+                                    <ToolbarSpacer id="toolbarSpacer2" />
+                                    <Button id="btncreate" text="Create" icon="sap-icon://add"
+                                            visible="{appMode>/isQC}" press=".onCreateSample"/>
+                                </OverflowToolbar>
+                            </headerToolbar>
+
+                            <columns>
+                                <Column
+                                    id="srno"
+                                    width="auto"
+                                >
+                                    <Text
+                                        id="srnotxt"
+                                        text="Sr#"
+                                    />
+                                </Column>
+                                <Column
+                                    id="qtycol"
+                                    width="auto"
+                                >
+                                    <Text
+                                        id="qtytxt"
+                                        text="Quantity"
+                                    />
+                                </Column>
+                                <Column
+                                    id="Personcol"
+                                    width="auto"
+                                >
+                                    <Text
+                                        id="persontxt"
+                                        text="Person"
+                                    />
+                                </Column>
+                                <Column
+                                    id="Datecol"
+                                    width="auto"
+                                >
+                                    <Text
+                                        id="datetxt"
+                                        text="Date"
+                                    />
+                                </Column>
+                                <Column
+                                    id="timecol"
+                                    width="auto"
+                                >
+                                    <Text
+                                        id="timetxt"
+                                        text="Time"
+                                    />
+                                </Column>
+                            </columns>
+
+                            <items>
+                                <ColumnListItem id="ColItem" type="Active" press=".onEditSample" >
+                                    <cells>
+                                        <Text
+                                            id="srnotxtfld"
+                                            text="{= ${sampleModel>sampleNo} || 'New' }"
+                                        />
+                                        <Text
+                                            id="qtytxtfld"
+                                            text="{sampleModel>sampleQty}"
+                                        />
+                                        <Text
+                                            id="persontxtfld"
+                                            text="{sampleModel>creaUser}"
+                                        />
+                                        <Text
+                                            id="datetxtfld"
+                                            text="{
+                                          path: 'sampleModel>creaDate',
+                                          type: 'sap.ui.model.type.Date',
+                                          formatOptions: { style: 'medium', UTC: true }
+                                      }"
+                                        />
+                                        <Text
+                                            id="timetxtfld"
+                                            text="{path: 'sampleModel>creaTime', type: 'sap.ui.model.odata.type.Time', formatOptions: { style: 'medium', UTC: true }}"
+                                            
+                                        />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+
+        <footer>
+            <OverflowToolbar id="inspFooterToolbar">
+                <ToolbarSpacer id="inspFooterSpacer" />
+                    <Button id="saveInspBtn"   text="Save"    visible="{appMode>/isQC}" press=".onSaveInspection"/>
+                    <Button id="submitInspBtn" text="Submit"  type="Emphasized" visible="{appMode>/isQC}" press=".onSubmitInspection"/>
+                    <Button id="approveBtn"    text="Approve" type="Accept"  visible="{appMode>/isSupervisor}" press=".onApprove"/>
+                    <Button id="rejectBtn"     text="Reject"  type="Reject"  visible="{appMode>/isSupervisor}" press=".onReject"/>
+                    <Button id="returnBtn"     text="Return"  type="Default"  visible="{appMode>/isSupervisor}" press=".onReturn"/>                    
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

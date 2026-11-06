@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <SelectDialog id="uomVHDp"
+        title="Select Unit of Measure"
+        search=".onUomSearch"
+        confirm=".onUomConfirm"
+        cancel=".onUomCancel"
+        items="{
+            path: '/I_UnitOfMeasureStdVH',
+            sorter: { path: 'UnitOfMeasure' }
+        }">
+        <StandardListItem id="_IDGenStandardListItemUom"
+            title="{UnitOfMeasure}"
+            description="{UnitOfMeasureLongName}"
+            type="Active"/>
+    </SelectDialog>
+
+</core:FragmentDefinition>

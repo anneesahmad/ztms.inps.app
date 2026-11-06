@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "4.0"
+metadata:
+  name: zfiori.ztms.inps.app
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        log: 5
+        ignoreCertError: true 
+        target:
+          url: https://vhnsdds4ci.sap.nishatsutas.com:44300
+          client: '100'
+        app:
+          name: ZTMS_INSP_APP
+          package: ZUA
+          transport: DS4K903044
+        exclude:
+          - /test/
+          - /localService/

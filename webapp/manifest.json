@@ -1,0 +1,138 @@
+{
+  "_version": "1.37.0",
+  "sap.app": {
+    "id": "zfiori.ztms.inps.app",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.33.0",
+      "toolsId": "0726c9b6-162a-4bd4-88c5-8cb6b2b9c5bd"
+    },
+    "dataSources": {
+      "ZTMS_INSP_ANNO_MDL": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZTMS_INSP_ANNO_MDL',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/mainService/ZTMS_INSP_ANNO_MDL.xml"
+        }
+      },
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/ZTMS_INSP_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "ZTMS_INSP_ANNO_MDL"
+          ],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.96.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "zfiori.ztms.inps.app.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "zfiori.ztms.inps.app.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "RouteInspectionRequest",
+          "pattern": ":?query:",
+          "target": [
+            "TargetInspectionRequest"
+          ]
+        },
+        {
+          "name": "RouteInspectionForm",
+          "pattern": "inspection/{inspReq}",
+          "target": [
+            "TargetInspectionForm"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetInspectionRequest": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "InspectionRequest",
+          "viewName": "InspectionRequest"
+        },
+        "TargetInspectionForm": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "InspectionForm",
+          "viewName": "InspectionForm"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "zfiori.ztms.inps.app.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://vhnsdds4ci.sap.nishatsutas.com:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhnsdds4ci.sap.nishatsutas.com:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhnsdds4ci.sap.nishatsutas.com:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhnsdds4ci.sap.nishatsutas.com:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="CodeList"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhnsdds4ci.sap.nishatsutas.com:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhnsdds4ci.sap.nishatsutas.com:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhnsdds4ci.sap.nishatsutas.com:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhnsdds4ci.sap.nishatsutas.com:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhnsdds4ci.sap.nishatsutas.com:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhnsdds4ci.sap.nishatsutas.com:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="Validation"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZTMS_INSP_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="I_UnitOfMeasureStdVHType" sap:label="Unit of Measure" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="UnitOfMeasure"/>
+                </Key>
+                <Property Name="UnitOfMeasure" Type="Edm.String" Nullable="false" MaxLength="3" sap:text="UnitOfMeasureLongName" sap:label="Unit of Measure" sap:semantics="unit-of-measure"/>
+                <Property Name="UnitOfMeasureLongName" Type="Edm.String" MaxLength="30" sap:label="Measurement Unit Txt" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)"/>
+                <Property Name="UnitOfMeasureDimension" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:text="UnitOfMeasureDimensionName" sap:label="Dimension" sap:quickinfo="Dimension key"/>
+                <Property Name="UnitOfMeasureDimensionName" Type="Edm.String" MaxLength="20" sap:label="Dimension text"/>
+            </EntityType>
+            <EntityType Name="inspCharsType" sap:label="CDS View for TMS Inspection Characteristics" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="micCode"/>
+                </Key>
+                <Property Name="micCode" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="UpperCase" sap:label="Master Insp. Charac." sap:quickinfo="Master Inspection Characteristic"/>
+                <Property Name="micText" Type="Edm.String" MaxLength="40" sap:label="Description" sap:quickinfo="Short text/description of the object"/>
+            </EntityType>
+            <EntityType Name="inspHeadType" sap:label="CDS View for Truck Management Inspection Header" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="inspReq"/>
+                </Key>
+                <Property Name="inspReq" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="INSP REQ No" sap:quickinfo="Inspection Request No"/>
+                <Property Name="poNo" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Purchasing Document" sap:quickinfo="Purchasing Document Number"/>
+                <Property Name="creaDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Inspection Date" sap:quickinfo="Creation Date"/>
+                <Property Name="creaTime" Type="Edm.Time" Precision="0" sap:label="Inspection Time" sap:quickinfo="Creation Time"/>
+                <Property Name="userName" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="User Name"/>
+                <Property Name="vendorCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Supplier" sap:quickinfo="Vendor's account number"/>
+                <Property Name="vendorName" Type="Edm.String" MaxLength="35" sap:label="Name" sap:quickinfo="Name 1"/>
+                <Property Name="status" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Inspection Status"/>
+                <Property Name="truckReg" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Registration No" sap:quickinfo="Truck Registration No"/>
+                <Property Name="driverName" Type="Edm.String" MaxLength="40" sap:label="Driver Name" sap:quickinfo="Truck Driver Name"/>
+                <Property Name="action" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Character Length 1" sap:quickinfo="Character Field of Length 1"/>
+                <NavigationProperty Name="to_inspSample" Relationship="ZTMS_INSP_SRV.assoc_3AFB4F25655CF4BAAA59977D4EE37524" FromRole="FromRole_assoc_3AFB4F25655CF4BAAA59977D4EE37524" ToRole="ToRole_assoc_3AFB4F25655CF4BAAA59977D4EE37524"/>
+                <NavigationProperty Name="to_inspVenRes" Relationship="ZTMS_INSP_SRV.assoc_5830C8DC00804604C6A78C37A5F5554E" FromRole="FromRole_assoc_5830C8DC00804604C6A78C37A5F5554E" ToRole="ToRole_assoc_5830C8DC00804604C6A78C37A5F5554E"/>
+            </EntityType>
+            <EntityType Name="inspResultsType" sap:label="CDS View for Truck Management Inspection Results" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="inspReq"/>
+                    <PropertyRef Name="sampleNo"/>
+                    <PropertyRef Name="micSeq"/>
+                </Key>
+                <Property Name="inspReq" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="INSP REQ No" sap:quickinfo="Inspection Request No"/>
+                <Property Name="sampleNo" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Sample No"/>
+                <Property Name="micSeq" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Insp. Characteristic" sap:quickinfo="Inspection Characteristic Number"/>
+                <Property Name="micCode" Type="Edm.String" MaxLength="8" sap:display-format="UpperCase" sap:label="Master Insp. Charac." sap:quickinfo="Master Inspection Characteristic"/>
+                <Property Name="micText" Type="Edm.String" MaxLength="40" sap:label="Description" sap:quickinfo="Short text/description of the object"/>
+                <Property Name="quanRes" Type="Edm.Decimal" Precision="13" Scale="2" sap:label="Quantitative Result"/>
+                <Property Name="qualRes" Type="Edm.String" MaxLength="50" sap:label="Qualitative Result"/>
+            </EntityType>
+            <EntityType Name="inspSampleType" sap:label="CDS View for Truck Management Inspection Samples" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="inspReq"/>
+                    <PropertyRef Name="sampleNo"/>
+                </Key>
+                <Property Name="inspReq" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="INSP REQ No" sap:quickinfo="Inspection Request No"/>
+                <Property Name="sampleNo" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Sample No"/>
+                <Property Name="sampleQty" Type="Edm.Decimal" Precision="13" Scale="3" sap:label="Sample Qty" sap:quickinfo="Sample Quantity"/>
+                <Property Name="uom" Type="Edm.String" MaxLength="3" sap:label="Base Unit of Measure" sap:semantics="unit-of-measure"/>
+                <Property Name="decision" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Sample Decision"/>
+                <Property Name="remarks" Type="Edm.String" MaxLength="100" sap:display-format="UpperCase" sap:label="Remarks Decision"/>
+                <Property Name="action" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Character Length 1" sap:quickinfo="Character Field of Length 1"/>
+                <Property Name="creaDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Created on" sap:quickinfo="Date on which the record was created"/>
+                <Property Name="creaTime" Type="Edm.Time" Precision="0" sap:label="Time" sap:quickinfo="Entry time"/>
+                <Property Name="creaUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By" sap:quickinfo="Name of Person Responsible for Creating the Object"/>
+                <NavigationProperty Name="to_inspRes" Relationship="ZTMS_INSP_SRV.assoc_AA3D4176DED89128135A6C2095A503FD" FromRole="FromRole_assoc_AA3D4176DED89128135A6C2095A503FD" ToRole="ToRole_assoc_AA3D4176DED89128135A6C2095A503FD"/>
+                <NavigationProperty Name="to_uom" Relationship="ZTMS_INSP_SRV.assoc_AF8F9B6977FA250DC6C92ED1C78E58A4" FromRole="FromRole_assoc_AF8F9B6977FA250DC6C92ED1C78E58A4" ToRole="ToRole_assoc_AF8F9B6977FA250DC6C92ED1C78E58A4"/>
+            </EntityType>
+            <EntityType Name="inspVenResType" sap:label="CDS View for Truck Management Insp Vendor Res" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="inspReq"/>
+                    <PropertyRef Name="micSeq"/>
+                </Key>
+                <Property Name="inspReq" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="INSP REQ No" sap:quickinfo="Inspection Request No"/>
+                <Property Name="micSeq" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Insp. Characteristic" sap:quickinfo="Inspection Characteristic Number"/>
+                <Property Name="micCode" Type="Edm.String" MaxLength="8" sap:display-format="UpperCase" sap:label="Master Insp. Charac." sap:quickinfo="Master Inspection Characteristic"/>
+                <Property Name="micText" Type="Edm.String" MaxLength="40" sap:label="Description" sap:quickinfo="Short text/description of the object"/>
+                <Property Name="quanRes" Type="Edm.Decimal" Precision="13" Scale="2" sap:label="Quantitative Result"/>
+                <Property Name="qualRes" Type="Edm.String" MaxLength="50" sap:label="Qualitative Result"/>
+            </EntityType>
+            <Association Name="assoc_5830C8DC00804604C6A78C37A5F5554E" sap:content-version="1">
+                <End Type="ZTMS_INSP_SRV.inspHeadType" Multiplicity="1" Role="FromRole_assoc_5830C8DC00804604C6A78C37A5F5554E"/>
+                <End Type="ZTMS_INSP_SRV.inspVenResType" Multiplicity="*" Role="ToRole_assoc_5830C8DC00804604C6A78C37A5F5554E"/>
+            </Association>
+            <Association Name="assoc_3AFB4F25655CF4BAAA59977D4EE37524" sap:content-version="1">
+                <End Type="ZTMS_INSP_SRV.inspHeadType" Multiplicity="1" Role="FromRole_assoc_3AFB4F25655CF4BAAA59977D4EE37524"/>
+                <End Type="ZTMS_INSP_SRV.inspSampleType" Multiplicity="*" Role="ToRole_assoc_3AFB4F25655CF4BAAA59977D4EE37524"/>
+            </Association>
+            <Association Name="assoc_AA3D4176DED89128135A6C2095A503FD" sap:content-version="1">
+                <End Type="ZTMS_INSP_SRV.inspSampleType" Multiplicity="1" Role="FromRole_assoc_AA3D4176DED89128135A6C2095A503FD"/>
+                <End Type="ZTMS_INSP_SRV.inspResultsType" Multiplicity="*" Role="ToRole_assoc_AA3D4176DED89128135A6C2095A503FD"/>
+            </Association>
+            <Association Name="assoc_AF8F9B6977FA250DC6C92ED1C78E58A4" sap:content-version="1">
+                <End Type="ZTMS_INSP_SRV.inspSampleType" Multiplicity="1" Role="FromRole_assoc_AF8F9B6977FA250DC6C92ED1C78E58A4"/>
+                <End Type="ZTMS_INSP_SRV.I_UnitOfMeasureStdVHType" Multiplicity="0..1" Role="ToRole_assoc_AF8F9B6977FA250DC6C92ED1C78E58A4"/>
+            </Association>
+            <EntityContainer Name="ZTMS_INSP_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="I_UnitOfMeasureStdVH" EntityType="ZTMS_INSP_SRV.I_UnitOfMeasureStdVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="inspChars" EntityType="ZTMS_INSP_SRV.inspCharsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="inspHead" EntityType="ZTMS_INSP_SRV.inspHeadType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="inspResults" EntityType="ZTMS_INSP_SRV.inspResultsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="inspSample" EntityType="ZTMS_INSP_SRV.inspSampleType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="inspVenRes" EntityType="ZTMS_INSP_SRV.inspVenResType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_AA3D4176DED89128135A6C2095A503FD" Association="ZTMS_INSP_SRV.assoc_AA3D4176DED89128135A6C2095A503FD" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="inspSample" Role="FromRole_assoc_AA3D4176DED89128135A6C2095A503FD"/>
+                    <End EntitySet="inspResults" Role="ToRole_assoc_AA3D4176DED89128135A6C2095A503FD"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_AF8F9B6977FA250DC6C92ED1C78E58A4" Association="ZTMS_INSP_SRV.assoc_AF8F9B6977FA250DC6C92ED1C78E58A4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="inspSample" Role="FromRole_assoc_AF8F9B6977FA250DC6C92ED1C78E58A4"/>
+                    <End EntitySet="I_UnitOfMeasureStdVH" Role="ToRole_assoc_AF8F9B6977FA250DC6C92ED1C78E58A4"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_5830C8DC00804604C6A78C37A5F5554E" Association="ZTMS_INSP_SRV.assoc_5830C8DC00804604C6A78C37A5F5554E" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="inspHead" Role="FromRole_assoc_5830C8DC00804604C6A78C37A5F5554E"/>
+                    <End EntitySet="inspVenRes" Role="ToRole_assoc_5830C8DC00804604C6A78C37A5F5554E"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_3AFB4F25655CF4BAAA59977D4EE37524" Association="ZTMS_INSP_SRV.assoc_3AFB4F25655CF4BAAA59977D4EE37524" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="inspHead" Role="FromRole_assoc_3AFB4F25655CF4BAAA59977D4EE37524"/>
+                    <End EntitySet="inspSample" Role="ToRole_assoc_3AFB4F25655CF4BAAA59977D4EE37524"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="ZTMS_INSP_SRV.ZTMS_INSP_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+            </Annotations>
+            <atom:link rel="self" href="https://vhnsdds4ci.sap.nishatsutas.com:44300/sap/opu/odata/sap/ZTMS_INSP_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://vhnsdds4ci.sap.nishatsutas.com:44300/sap/opu/odata/sap/ZTMS_INSP_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
