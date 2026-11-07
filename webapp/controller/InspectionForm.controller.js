@@ -16,6 +16,7 @@ sap.ui.define([
         onInit: function () {
             this.getView().setModel(new JSONModel([]), "sampleModel");
             this.getView().setModel(new JSONModel({ isEdit: false, isLocked: false, inspRes: [] }), "inspSample");
+            this.getView().setModel(new JSONModel({ remarks: "" }), "supModel");
 
             this._pChars = this._read("/inspChars");
 
@@ -45,6 +46,8 @@ sap.ui.define([
             this.getView().bindElement({ path: "/inspHead('" + sInspReq + "')" });
 
             this._loadSampleData(sInspReq);
+
+            this.getView().getModel("supModel").setData({ remarks: "" });
 
             this._pVenRes = this._read("/inspHead('" + sInspReq + "')/to_inspVenRes")
                 .then(function (aRes) {
@@ -205,6 +208,7 @@ sap.ui.define([
                         isEdit: false,
                         isNew: true,
                         isLocked: false,
+                        isDeleted: false,
                         sampleNo: "",
                         sampleQty: "",
                         uom: "",
@@ -285,6 +289,7 @@ sap.ui.define([
                         isEdit: true,
                         isNew: !!oRow.isNew,
                         isLocked: !oRow.isNew,
+                        isDeleted: oRow.delFlg === "X",
                         sampleNo: oRow.sampleNo,
                         sampleQty: oRow.sampleQty,
                         uom: oRow.uom,
@@ -400,6 +405,68 @@ sap.ui.define([
             this._getDialog().then(function (oDialog) { oDialog.close(); });
         },
 
+        // onDeleteSample: function (oEvent) {
+        //     var oView = this.getView();
+        //     var oSampleModel = oView.getModel("sampleModel");
+        //     var oODataModel = this.getOwnerComponent().getModel();
+        //     var oCtx = oEvent.getParameter("listItem").getBindingContext("sampleModel");
+        //     var oRow = oCtx.getObject();
+        //     var that = this;
+
+        //     MessageBox.confirm("Delete sample " + (oRow.sampleNo || "(new)") + "?", {
+        //         actions: [MessageBox.Action.DELETE, MessageBox.Action.CANCEL],
+        //         emphasizedAction: MessageBox.Action.DELETE,
+        //         onClose: function (sAction) {
+        //             if (sAction !== MessageBox.Action.DELETE) { return; }
+        //             if (oRow.delFlg === "X") {
+        //                 MessageToast.show("This sample is already deleted");
+        //                 return;
+        //             }
+
+        //             // removes the row from the table by reference (safe even if the list changed meanwhile)
+        //             var fnRemoveLocal = function () {
+        //                 var aSamples = oSampleModel.getData();
+        //                 var iIndex = aSamples.indexOf(oRow);
+        //                 if (iIndex > -1) { aSamples.splice(iIndex, 1); }
+        //                 oSampleModel.refresh(true);
+        //             };
+
+        //             // Not saved yet: nothing to delete in the backend
+        //             if (oRow.isNew || !oRow.sampleNo) {
+        //                 fnRemoveLocal();
+        //                 MessageToast.show("Sample deleted");
+        //                 return;
+        //             }
+
+        //             oView.setBusy(true);
+        //             oODataModel.create("/inspHead", {
+        //                 action: "D",
+        //                 inspReq: that._sInspReq,
+        //                 to_inspSample: [{
+        //                     inspReq: that._sInspReq,
+        //                     sampleNo: oRow.sampleNo,
+        //                     action: "D"
+        //                 }]
+        //             }, {
+        //                 success: function () {
+        //                     oView.setBusy(false);
+        //                     fnRemoveLocal();
+
+        //                     // the create response overwrites the cached header, so re-read it
+        //                     var oBinding = oView.getElementBinding();
+        //                     if (oBinding) { oBinding.refresh(true); }
+
+        //                     MessageToast.show("Sample deleted");
+        //                 },
+        //                 error: function (oError) {
+        //                     oView.setBusy(false);
+        //                     MessageBox.error(that._getErrorMessage(oError));
+        //                 }
+        //             });
+           
+        //         }
+        //     });
+        // },
         onDeleteSample: function (oEvent) {
             var oView = this.getView();
             var oSampleModel = oView.getModel("sampleModel");
@@ -408,23 +475,24 @@ sap.ui.define([
             var oRow = oCtx.getObject();
             var that = this;
 
+            // Already deleted: show an error and stop (before asking for confirmation)
+            if (oRow.delFlg === "X") {
+                MessageBox.error("Sample " + oRow.sampleNo + " is already deleted.");
+                return;
+            }
+
             MessageBox.confirm("Delete sample " + (oRow.sampleNo || "(new)") + "?", {
                 actions: [MessageBox.Action.DELETE, MessageBox.Action.CANCEL],
                 emphasizedAction: MessageBox.Action.DELETE,
                 onClose: function (sAction) {
                     if (sAction !== MessageBox.Action.DELETE) { return; }
 
-                    // removes the row from the table by reference (safe even if the list changed meanwhile)
-                    var fnRemoveLocal = function () {
+                    // Not saved yet: nothing in the backend, so just remove the local row
+                    if (oRow.isNew || !oRow.sampleNo) {
                         var aSamples = oSampleModel.getData();
                         var iIndex = aSamples.indexOf(oRow);
                         if (iIndex > -1) { aSamples.splice(iIndex, 1); }
                         oSampleModel.refresh(true);
-                    };
-
-                    // Not saved yet: nothing to delete in the backend
-                    if (oRow.isNew || !oRow.sampleNo) {
-                        fnRemoveLocal();
                         MessageToast.show("Sample deleted");
                         return;
                     }
@@ -441,7 +509,10 @@ sap.ui.define([
                     }, {
                         success: function () {
                             oView.setBusy(false);
-                            fnRemoveLocal();
+
+                            // keep the row, just mark it as deleted
+                            oRow.delFlg = "X";
+                            oSampleModel.refresh(true);
 
                             // the create response overwrites the cached header, so re-read it
                             var oBinding = oView.getElementBinding();
@@ -454,7 +525,6 @@ sap.ui.define([
                             MessageBox.error(that._getErrorMessage(oError));
                         }
                     });
-           
                 }
             });
         },
@@ -632,6 +702,67 @@ sap.ui.define([
 
         onUomCancel: function (oEvent) {
             oEvent.getSource().getBinding("items").filter([]);
+        },
+
+        /* ============ SUPERVISOR ACTIONS ============ */
+
+        onApprove: function () {
+            this._supervisorAction("A", "Approve", true);
+        },
+
+        onReject: function () {
+            this._supervisorAction("R", "Reject", true);
+        },
+
+        onReturn: function () {
+            this._supervisorAction("V", "Return", true);
+        },
+
+        onSupRemarksLiveChange: function (oEvent) {
+            oEvent.getSource().setValueState("None");
+        },
+
+        // sAction: A = accept, R = reject, V = revert
+        _supervisorAction: function (sAction, sLabel, bRemarksRequired) {
+            var oView = this.getView();
+            var oODataModel = this.getOwnerComponent().getModel();
+            var oRemarksInput = this.byId("supRemarksInput");
+            var sRemarks = (oView.getModel("supModel").getProperty("/remarks") || "").trim();
+            var that = this;
+
+            if (bRemarksRequired && !sRemarks) {
+                oRemarksInput.setValueState("Error");
+                oRemarksInput.setValueStateText("Remarks are required to " + sLabel.toLowerCase());
+                oRemarksInput.focus();
+                MessageToast.show("Please enter Supervisor Remarks");
+                return;
+            }
+
+            MessageBox.confirm(sLabel + " inspection request " + this._sInspReq + "?", {
+                actions: [sLabel, MessageBox.Action.CANCEL],
+                emphasizedAction: sLabel,
+                onClose: function (sBtn) {
+                    if (sBtn !== sLabel) { return; }
+
+                    oView.setBusy(true);
+                    oODataModel.create("/inspHead", {
+                        inspReq: that._sInspReq,
+                        action: sAction,
+                        supRemarks: sRemarks
+                    }, {
+                        success: function () {
+                            oView.setBusy(false);
+                            var mDone = { A: "approved", R: "rejected", V: "returned" };
+                            MessageToast.show("Inspection " + mDone[sAction]);
+                            that.onNavBack();   // list reloads on route match
+                        },
+                        error: function (oError) {
+                            oView.setBusy(false);
+                            MessageBox.error(that._getErrorMessage(oError));
+                        }
+                    });
+                }
+            });
         },
     });
 });

@@ -85,6 +85,7 @@
                     <Input
                         id="remarksText"
                         value="{inspSample>/remarks}"
+                        editable="{= !${inspSample>/isDeleted} &amp;&amp; ${appMode>/isQC} }"
                     />
                 </f:content>
             </f:SimpleForm>
@@ -162,6 +163,7 @@
                                         id="qcresulttxtfld"
                                         type="Number"
                                         value="{inspSample>quanRes}"
+                                        editable="{= !${inspSample>/isDeleted} &amp;&amp; ${appMode>/isQC} }"
                                         valueState="{= ${inspSample>qcError} ? 'Error' : 'None' }"
                                         valueStateText="Required"
                                         liveChange=".onQcLiveChange"
@@ -179,14 +181,14 @@
                 id="saveSampleBtn"
                 text="Add"
                 type="Emphasized"
-                visible="{= !${inspSample>/isEdit} &amp;&amp; ${appMode>/isQC} }"
+                visible="{= !${inspSample>/isEdit} &amp;&amp; ${appMode>/isQC} &amp;&amp; !${inspSample>/isDeleted} }"
                 press=".onAddSample"
             />
             <Button
                 id="updateSampleBtn"
                 text="Update"
                 type="Emphasized"
-                visible="{= ${inspSample>/isEdit} &amp;&amp; ${appMode>/isQC} }"
+                visible="{= ${inspSample>/isEdit} &amp;&amp; ${appMode>/isQC} &amp;&amp; !${inspSample>/isDeleted} }"
                 press=".onUpdateSample"
             />
             <Button

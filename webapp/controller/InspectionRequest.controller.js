@@ -24,21 +24,52 @@ function (Controller, JSONModel, Filter, FilterOperator, MessageToast, MessageBo
         },
 
          
+        // _loadInspectionData: function () {
+        //     var oODataModel = this.getOwnerComponent().getModel(); // default OData V2 model
+        //     var oView = this.getView();
+        //     var oMode = this.getOwnerComponent().getModel("appMode").getData();
+        //     var sStatus = oMode.isSupervisor ? "S" : "P";   // S = submitted, waiting for the supervisor (adjust to your status values)
+
+        //     oODataModel.read("/inspHead", {
+        //         filters: [new Filter("status", FilterOperator.EQ, sStatus   )],   // pending only
+        //         success: function (oData) {
+        //             oView.getModel("inspModel").setData(oData.results);
+        //             oView.setBusy(false);
+        //         },
+        //         error: function (oError) {
+        //             oView.setBusy(false);
+        //             sap.m.MessageBox.error("Failed to load data: " + oError.message);
+        //         }
+        //     });
+        // },
         _loadInspectionData: function () {
-            var oODataModel = this.getOwnerComponent().getModel(); // default OData V2 model
+            var oODataModel = this.getOwnerComponent().getModel();
             var oView = this.getView();
             var oMode = this.getOwnerComponent().getModel("appMode").getData();
-            var sStatus = oMode.isSupervisor ? "S" : "P";   // S = submitted, waiting for the supervisor (adjust to your status values)
+
+            var aFilters;
+            if (oMode.isSupervisor) {
+                aFilters = [new Filter("status", FilterOperator.EQ, "S")];
+            } else {
+                // QC: pending (P) or returned (V)
+                aFilters = [new Filter({
+                    filters: [
+                        new Filter("status", FilterOperator.EQ, "P"),
+                        new Filter("status", FilterOperator.EQ, "V")
+                    ],
+                    and: false   // OR
+                })];
+            }
 
             oODataModel.read("/inspHead", {
-                filters: [new Filter("status", FilterOperator.EQ, sStatus   )],   // pending only
+                filters: aFilters,
                 success: function (oData) {
                     oView.getModel("inspModel").setData(oData.results);
                     oView.setBusy(false);
                 },
                 error: function (oError) {
                     oView.setBusy(false);
-                    sap.m.MessageBox.error("Failed to load data: " + oError.message);
+                    MessageBox.error("Failed to load data: " + oError.message);
                 }
             });
         },

@@ -56,14 +56,18 @@
                 </Key>
                 <Property Name="inspReq" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="INSP REQ No" sap:quickinfo="Inspection Request No"/>
                 <Property Name="poNo" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Purchasing Document" sap:quickinfo="Purchasing Document Number"/>
+                <Property Name="poQty" Type="Edm.Decimal" Precision="13" Scale="3"/>
+                <Property Name="poUOM" Type="Edm.String" MaxLength="3" sap:label="Order Unit" sap:quickinfo="Purchase Order Unit of Measure" sap:semantics="unit-of-measure"/>
                 <Property Name="creaDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Inspection Date" sap:quickinfo="Creation Date"/>
                 <Property Name="creaTime" Type="Edm.Time" Precision="0" sap:label="Inspection Time" sap:quickinfo="Creation Time"/>
                 <Property Name="userName" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="User Name"/>
                 <Property Name="vendorCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Supplier" sap:quickinfo="Vendor's account number"/>
                 <Property Name="vendorName" Type="Edm.String" MaxLength="35" sap:label="Name" sap:quickinfo="Name 1"/>
                 <Property Name="status" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Inspection Status"/>
+                <Property Name="statusText" Type="Edm.String" MaxLength="23"/>
                 <Property Name="truckReg" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Registration No" sap:quickinfo="Truck Registration No"/>
                 <Property Name="driverName" Type="Edm.String" MaxLength="40" sap:label="Driver Name" sap:quickinfo="Truck Driver Name"/>
+                <Property Name="supRemarks" Type="Edm.String" MaxLength="500" sap:display-format="UpperCase" sap:label="Decision Remarks"/>
                 <Property Name="action" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Character Length 1" sap:quickinfo="Character Field of Length 1"/>
                 <NavigationProperty Name="to_inspSample" Relationship="ZTMS_INSP_SRV.assoc_3AFB4F25655CF4BAAA59977D4EE37524" FromRole="FromRole_assoc_3AFB4F25655CF4BAAA59977D4EE37524" ToRole="ToRole_assoc_3AFB4F25655CF4BAAA59977D4EE37524"/>
                 <NavigationProperty Name="to_inspVenRes" Relationship="ZTMS_INSP_SRV.assoc_5830C8DC00804604C6A78C37A5F5554E" FromRole="FromRole_assoc_5830C8DC00804604C6A78C37A5F5554E" ToRole="ToRole_assoc_5830C8DC00804604C6A78C37A5F5554E"/>
@@ -97,6 +101,7 @@
                 <Property Name="creaDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Created on" sap:quickinfo="Date on which the record was created"/>
                 <Property Name="creaTime" Type="Edm.Time" Precision="0" sap:label="Time" sap:quickinfo="Entry time"/>
                 <Property Name="creaUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By" sap:quickinfo="Name of Person Responsible for Creating the Object"/>
+                <Property Name="delFlg" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Deletion Indicator" sap:quickinfo="Deletion Indicator in Purchasing Document"/>
                 <NavigationProperty Name="to_inspRes" Relationship="ZTMS_INSP_SRV.assoc_AA3D4176DED89128135A6C2095A503FD" FromRole="FromRole_assoc_AA3D4176DED89128135A6C2095A503FD" ToRole="ToRole_assoc_AA3D4176DED89128135A6C2095A503FD"/>
                 <NavigationProperty Name="to_uom" Relationship="ZTMS_INSP_SRV.assoc_AF8F9B6977FA250DC6C92ED1C78E58A4" FromRole="FromRole_assoc_AF8F9B6977FA250DC6C92ED1C78E58A4" ToRole="ToRole_assoc_AF8F9B6977FA250DC6C92ED1C78E58A4"/>
             </EntityType>

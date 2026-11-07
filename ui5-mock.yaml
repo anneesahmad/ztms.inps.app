@@ -19,6 +19,7 @@ server:
           - path: /sap
             url: https://vhnsdds4ci.sap.nishatsutas.com:44300
             client: '110'
+            authenticationType: basic
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

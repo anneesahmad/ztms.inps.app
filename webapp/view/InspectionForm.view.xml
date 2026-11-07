@@ -87,11 +87,23 @@
                             text="{poNo}"
                         />
 
-                        <Label id="truckform" text="Truck Number"/>
-                        <Text  id="trucktext" text="{truckReg}"/>
+                        <Label
+                            id="truckform"
+                            text="Truck Number"
+                        />
+                        <Text
+                            id="trucktext"
+                            text="{truckReg}"
+                        />
 
-                        <Label id="driverform" text="Driver Name"/>
-                        <Text  id="drivertext" text="{driverName}"/>
+                        <Label
+                            id="driverform"
+                            text="Driver Name"
+                        />
+                        <Text
+                            id="drivertext"
+                            text="{driverName}"
+                        />
 
                         <!-- Vendor is not in inspHead yet; fill in when available -->
                         <Label
@@ -110,6 +122,29 @@
                         <Text
                             id="vennametext"
                             text="{vendorName}"
+                        />
+                        <Label
+                            id="supremarksform"
+                            text="Supervisor Remarks"
+                        />
+
+
+                        <!-- Supervisor types the remarks here -->
+                        <TextArea
+                            id="supRemarksInput"
+                            value="{supModel>/remarks}"
+                            rows="2"
+                            maxLength="500"
+                            placeholder="Enter remarks"
+                            visible="{appMode>/isSupervisor}"
+                            liveChange=".onSupRemarksLiveChange"
+                        />
+                        
+                        <!-- QC users only read the supervisor's remarks (e.g. after a return/reject) -->
+                        <Text
+                            id="supremarkstext"
+                            text="{supRemarks}"
+                            visible="{= ${appMode>/isQC} &amp;&amp; !!${supRemarks} }"
                         />
                     </f:content>
                 </f:SimpleForm>
@@ -138,8 +173,13 @@
                                         level="H5"
                                     />
                                     <ToolbarSpacer id="toolbarSpacer2" />
-                                    <Button id="btncreate" text="Create" icon="sap-icon://add"
-                                            visible="{appMode>/isQC}" press=".onCreateSample"/>
+                                    <Button
+                                        id="btncreate"
+                                        text="Create"
+                                        icon="sap-icon://add"
+                                        visible="{appMode>/isQC}"
+                                        press=".onCreateSample"
+                                    />
                                 </OverflowToolbar>
                             </headerToolbar>
 
@@ -189,10 +229,23 @@
                                         text="Time"
                                     />
                                 </Column>
+                                <Column
+                                    id="statuscol"
+                                    width="auto"
+                                >
+                                    <Text
+                                        id="statustxt"
+                                        text="Status"
+                                    />
+                                </Column>
                             </columns>
 
                             <items>
-                                <ColumnListItem id="ColItem" type="Active" press=".onEditSample" >
+                                <ColumnListItem
+                                    id="ColItem"
+                                    type="Active"
+                                    press=".onEditSample"
+                                >
                                     <cells>
                                         <Text
                                             id="srnotxtfld"
@@ -217,7 +270,12 @@
                                         <Text
                                             id="timetxtfld"
                                             text="{path: 'sampleModel>creaTime', type: 'sap.ui.model.odata.type.Time', formatOptions: { style: 'medium', UTC: true }}"
-                                            
+                                        />
+                                        <ObjectStatus
+                                            id="statustxtfld"
+                                            text="{= ${sampleModel>delFlg} === 'X' ? 'Deleted' : 'Created' }"
+                                            icon="{= ${sampleModel>delFlg} === 'X' ? 'sap-icon://delete' : 'sap-icon://accept' }"
+                                            state="{= ${sampleModel>delFlg} === 'X' ? 'Error' : 'Success' }"
                                         />
                                     </cells>
                                 </ColumnListItem>
@@ -231,11 +289,40 @@
         <footer>
             <OverflowToolbar id="inspFooterToolbar">
                 <ToolbarSpacer id="inspFooterSpacer" />
-                    <Button id="saveInspBtn"   text="Save"    visible="{appMode>/isQC}" press=".onSaveInspection"/>
-                    <Button id="submitInspBtn" text="Submit"  type="Emphasized" visible="{appMode>/isQC}" press=".onSubmitInspection"/>
-                    <Button id="approveBtn"    text="Approve" type="Accept"  visible="{appMode>/isSupervisor}" press=".onApprove"/>
-                    <Button id="rejectBtn"     text="Reject"  type="Reject"  visible="{appMode>/isSupervisor}" press=".onReject"/>
-                    <Button id="returnBtn"     text="Return"  type="Default"  visible="{appMode>/isSupervisor}" press=".onReturn"/>                    
+                <Button
+                    id="saveInspBtn"
+                    text="Save"
+                    visible="{appMode>/isQC}"
+                    press=".onSaveInspection"
+                />
+                <Button
+                    id="submitInspBtn"
+                    text="Submit"
+                    type="Emphasized"
+                    visible="{appMode>/isQC}"
+                    press=".onSubmitInspection"
+                />
+                <Button
+                    id="approveBtn"
+                    text="Approve"
+                    type="Accept"
+                    visible="{appMode>/isSupervisor}"
+                    press=".onApprove"
+                />
+                <Button
+                    id="rejectBtn"
+                    text="Reject"
+                    type="Reject"
+                    visible="{appMode>/isSupervisor}"
+                    press=".onReject"
+                />
+                <Button
+                    id="returnBtn"
+                    text="Return"
+                    type="Default"
+                    visible="{appMode>/isSupervisor}"
+                    press=".onReturn"
+                />
             </OverflowToolbar>
         </footer>
     </Page>
